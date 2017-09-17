@@ -1,12 +1,31 @@
 const path = require('path')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const CleanWebpackPlugin = require('clean-webpack-plugin')
+const ExtractTextPlugin = require("extract-text-webpack-plugin")
 const webpack = require('webpack')
 
+const generateHtml = new HtmlWebpackPlugin({
+    title: 'QQMusic Blog',
+    filename: path.resolve(__dirname, './dist/index.html'),
+    template: path.resolve(__dirname, './src/index.html'),
+    minify: {
+        removeComments: true
+    }
+})
+
+const extractCSS = new ExtractTextPlugin({
+    filename: '[name].[contenthash].css',
+    disable: process.env.NODE_ENV != 'production'
+})
+
 module.exports = {
-    entry: './src/main.js',
+    entry: {
+        vendor: ['vue', 'vue-router'],
+        app: './src/main.js'
+    },
     output: {
         path: path.resolve(__dirname, './dist'),
-        publicPath: '/dist/',
-        filename: 'build.js'
+        filename: '[name].[hash].js'
     },
     module: {
         rules: [
@@ -14,22 +33,18 @@ module.exports = {
                 test: /\.vue$/,
                 loader: 'vue-loader',
                 options: {
-                    loaders: {}
-                    // other vue-loader options go here
+                    extractCSS: extractCSS // 无需额外处理less
                 }
             }, {
-                test: /\.less$/,
-                use: [
-                    {
-                        loader: 'css-loader'
-                    },
-                    {
-                        loader: 'less-loader'
-                    }
-                ]
-            }, {
                 test: /\.css$/,
-                loader: 'style-loader!css-loader'
+                use: extractCSS.extract({
+                    fallback: 'style-loader',
+                    use: [
+                        {
+                            loader: 'css-loader'
+                        }
+                    ]
+                })
             }, {
                 test: /\.js$/,
                 loader: 'babel-loader',
@@ -58,7 +73,15 @@ module.exports = {
     performance: {
         hints: false
     },
-    devtool: '#eval-source-map'
+    devtool: '#eval-source-map',
+    plugins: [
+        new CleanWebpackPlugin(['dist']),
+        generateHtml,
+        new webpack.optimize.CommonsChunkPlugin({
+            name: 'vendor'
+        }),
+        extractCSS
+    ]
 }
 
 if (process.env.NODE_ENV === 'production') {

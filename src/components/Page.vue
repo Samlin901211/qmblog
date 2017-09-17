@@ -1,7 +1,7 @@
 <template>
   <div>
     <Navigation />
-    <h2>文章页面</h2>
+    <h2 class="title">文章页面</h2>
     <p>页面id：{{$route.params.id}}</p>
   </div>
 </template>
@@ -15,3 +15,12 @@ export default {
     }
 }
 </script>
+
+<style lang="less" scoped>
+.title {
+    color: #999;
+    a {
+        text-decoration: none;
+    }
+}
+</style>

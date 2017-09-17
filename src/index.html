@@ -2,12 +2,13 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>qmblog</title>
+    <title><%= htmlWebpackPlugin.options.title %></title>
   </head>
   <body>
     <div id="app">
       <router-view></router-view>
     </div>
-  <script src="/dist/build.js"></script>
+  
+    <!-- wepack会自动引入打包好的脚本，无需自行引入 -->
   </body>
 </html>
