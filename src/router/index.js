@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import Index from '../components/Index.vue'
-import Page from '../components/Page.vue'
+import Index from '../views/Index.vue'
+import Page from '../views/Page.vue'
 
 Vue.use(Router);
 
