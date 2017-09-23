@@ -1,8 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import Index from '../views/Index.vue'
+import List from '../views/List.vue'
 import Page from '../views/Page.vue'
+import Editor from '../views/components/Editor.vue'
 
 Vue.use(Router);
 
@@ -12,10 +13,13 @@ export default new Router({
     routes: [
         {
             path: '/',
-            component: Index
+            component: List
         }, {
             path: '/page/:id',
             component: Page
+        }, {
+            path: '/edit',
+            component: Editor
         }
     ]
 })
