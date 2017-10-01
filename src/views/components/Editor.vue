@@ -32,6 +32,7 @@ const languageOverrides = {
 
 var md = new MarkdownIt({
     html: true,
+    breaks: true,
     highlight(code, lang) {
         if (languageOverrides[lang]) lang = languageOverrides[lang];
         if (lang && hljs.getLanguage(lang)) {
@@ -64,6 +65,7 @@ export default {
     },
     methods: {
         onEditorReady(editor) {
+            console.log(editor.getValue());
             this.preview = md.render(editor.getValue())
         },
         onEditorCodeChange(newCode) {
@@ -72,6 +74,8 @@ export default {
     },
     computed: {
         editor() {
+
+            console.log(this.$refs.myEditor.editor);
             return this.$refs.myEditor.editor
         }
     },

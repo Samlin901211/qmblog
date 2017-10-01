@@ -1,3 +1,6 @@
+
+import axios from 'axios'
+
 const state = {
     fetching: 0,
     data: []
@@ -29,7 +32,12 @@ const actions = {
                 content: '瞅你咋地'
             }
         ]
-        ctx.commit('updateList', data)
+
+        // axios.get('').then((data) => {
+        //     console.log(data);
+        // });
+
+        ctx.commit('updateList', data);
     }
 }
 
