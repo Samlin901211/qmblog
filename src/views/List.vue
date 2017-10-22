@@ -1,7 +1,7 @@
 <template>
     <v-list two-line>
         <template v-for="item in data">
-            <v-list-tile avatar :key="item.id" @click="" to="/page/1">
+            <v-list-tile avatar :key="item.id" to="/page/1">
                 <v-list-tile-content>
                     <v-list-tile-title v-html="item.title"></v-list-tile-title>
                     <v-list-tile-sub-title v-html="item.content"></v-list-tile-sub-title>
